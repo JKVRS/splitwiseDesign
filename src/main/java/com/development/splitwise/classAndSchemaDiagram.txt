@@ -1,0 +1,93 @@
+// ------------------------SPLITWISE--------------------------
+
+// Class Diagram
+/*
+ * Two Ways : Noun, Visualization
+ * Noun : If requirements are already given than we mostly use Noun wala tarika
+ * Visualization : If we have to gather requirement than we will go with Visualization approach
+ *
+ *
+ */
+
+ Class BaseModel{
+    id;
+    creationdate
+    lastModifydate;
+ }
+ Class user{
+    name;
+    phone
+    password
+    userStatus
+    List<Group> group
+
+ }
+ enum UserStatus{
+   INVITE, AVAILABLE
+ }
+
+ Class Expense{
+     id
+     description
+     amount
+     expenseCreatedByUesr
+     expenseCreationDate
+     expensetype (expense, transaction)
+     group
+ }
+enum ExpenseType{
+    Expense,TRANSACTION
+}
+ Class Group{
+    name
+    List<User> user (m:m relationship)
+    groupCreationDate
+   // List<Expense> expense; (ideally not add list until unless it needed, mostly m:m relationship we have to add list )
+    description
+    createdBy
+
+ }
+ Class UserExpense{
+    user
+    expense
+    amountPaid
+    UserExpenseType (pay , Had to pay)
+ }
+ enum UserExpenseType{
+    paid,had_to_pay
+ }
+
+
+ ---------------------------------------------------------------------------------------------
+
+ /*
+  * Schema Design
+  */
+
+User :  id, name, phone, password, statusId
+
+(m:1 Group and createByUser)
+Group  :   id , description, name,createById
+
+(m:m)
+UserGroup : userid,groupid
+
+(m:1 ExpenseUser)
+(m:1 ExpenseGroup)
+Expense  :  id, amount, description, expenseTypeId, createByuserId,groupId
+
+(m:1 UserExpense and user) (Mapping class m always m:1 cardinaity hoti h)
+(m:1 UserExpense and ExpenseType)
+UserExpense : amount, userId, ExpenseId, ExpenseTypeid
+
+ExpenseType : id, value
+UserExpenseType : id,value
+UserStatus : id, value
+
+-------------------------------------------------------------------------------------------------
+
+/*
+ * How to take input form command line
+ *
+ */
+
